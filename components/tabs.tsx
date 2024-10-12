@@ -15,7 +15,7 @@ export default function Tabs() {
       gsap.to(container.current, {
         duration: 0.2,
         ease: "power2.out",
-        top: activeTab.index === 0 ? 4 : activeTab.index === 1 ? 34 : 64,
+        top: 4 + activeTab.index * 30,
       })
     },
     { scope: container, dependencies: [activeTab] },

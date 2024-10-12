@@ -3,6 +3,13 @@
 import Code from "@/components/_code"
 import Color from "@/components/_color"
 import General from "@/components/_general"
+import Settings from "@/components/_settings"
+import EditorBlinksButtons from "@/components/editor-blinks-buttons"
+import EditorBlinksForm from "@/components/editor-blinks-form"
+import EditorBlinksInputs from "@/components/editor-blinks-inputs"
+import EditorMiniblinkButtons from "@/components/editor-miniblink-buttons"
+import EditorMiniblinkForm from "@/components/editor-miniblink-form"
+import EditorMiniblinkInputs from "@/components/editor-miniblink-inputs"
 import Tabs from "@/components/tabs"
 import { useTabs } from "@/hooks/use-tabs"
 import { useGSAP } from "@gsap/react"
@@ -58,7 +65,7 @@ export default function Home() {
   )
 
   return (
-    <main className="bg-1/2 relative grid h-screen w-screen grid-cols-[18rem_1fr] bg-[#f7f7f7] bg-dot bg-[length:20px_20px] p-4 text-[#373737]">
+    <main className="bg-1/2 relative grid h-screen w-screen grid-cols-[18rem_1fr] overflow-hidden bg-[#f7f7f7] bg-dot bg-[length:20px_20px] p-4 text-[#373737]">
       <aside className="relative col-span-1 flex h-full w-full flex-col rounded-[12px] bg-[#fff] p-4 shadow-sm">
         <Tabs />
         <section
@@ -81,9 +88,35 @@ export default function Home() {
             >
               <Color />
             </div>
+            <div
+              id="tab-settings"
+              className="absolute left-[512px] h-full w-[256px]"
+            >
+              <Settings />
+            </div>
           </div>
         </section>
       </aside>
+
+      <section className="flex h-full w-full items-center justify-center gap-10 overflow-hidden">
+        <div className="flex justify-start gap-10">
+          <div className="w-[750px] max-w-[350px]">
+            <EditorBlinksButtons />
+          </div>
+          <div className="w-[750px] max-w-[350px]">
+            <EditorBlinksInputs />
+          </div>
+          <div className="w-[750px] max-w-[350px]">
+            <EditorBlinksForm />
+          </div>
+
+          <div className="w-[750px] max-w-[350px]">
+            <EditorMiniblinkInputs />
+            <EditorMiniblinkForm />
+            <EditorMiniblinkButtons />
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

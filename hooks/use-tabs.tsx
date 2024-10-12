@@ -1,11 +1,17 @@
 import { create } from "zustand"
 import { Tab, TabItem } from "@/types"
-import { Code, Palette, Sparkle } from "lucide-react"
+import { Code, Palette, Sparkle, Settings } from "lucide-react"
 
 export const TABS: TabItem[] = [
   { id: Tab.General, index: 0, label: "General", icon: <Sparkle size={14} /> },
   { id: Tab.Code, index: 1, label: "Code", icon: <Code size={14} /> },
   { id: Tab.Color, index: 2, label: "Schema", icon: <Palette size={14} /> },
+  {
+    id: Tab.Settings,
+    index: 3,
+    label: "Settings",
+    icon: <Settings size={14} />,
+  },
 ]
 
 interface TabsState {

@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-css": "^6.3.0",
     "@dialectlabs/blinks": "^0.7.0",
+    "@dialectlabs/blinks-core": "^0.13.1",
     "@gsap/react": "^2.1.1",
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-popover": "^1.1.1",
@@ -19,16 +21,20 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.95.2",
+    "@uiw/react-codemirror": "^4.23.5",
     "lucide-react": "^0.447.0",
     "next": "14.2.5",
+    "prismjs": "^1.29.0",
     "react": "^18",
     "react-colorful": "^5.6.1",
     "react-dom": "^18",
+    "react-simple-code-editor": "^0.14.1",
     "tailwind-merge": "^2.5.3",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/prismjs": "^1.26.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
