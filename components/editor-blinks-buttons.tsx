@@ -7,7 +7,7 @@ export default function EditorBlinksButtons() {
 
   return (
     <BaseBlinkLayout
-      stylePreset="custom"
+      stylePreset="default"
       title="Blinkman"
       description="Blinkman"
       image={

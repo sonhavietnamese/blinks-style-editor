@@ -1,22 +1,22 @@
-import type { ExecutionStatus } from '@dialectlabs/blinks-core';
+import type { ExecutionStatus } from "@dialectlabs/blinks-core"
 
 export const buttonVariantMap: Record<
   ExecutionStatus,
-  'default' | 'error' | 'success'
+  "default" | "error" | "success"
 > = {
-  'checking-supportability': 'default',
-  blocked: 'default',
-  idle: 'default',
-  executing: 'default',
-  success: 'success',
-  error: 'error',
-};
+  "checking-supportability": "default",
+  blocked: "default",
+  idle: "default",
+  executing: "default",
+  success: "success",
+  error: "error",
+}
 
 export const buttonLabelMap: Record<ExecutionStatus, string | null> = {
-  'checking-supportability': 'Loading',
+  "checking-supportability": "Loading",
   blocked: null,
   idle: null,
-  executing: 'Executing',
-  success: 'Completed',
-  error: 'Failed',
-};
+  executing: "Executing",
+  success: "Completed",
+  error: "Failed",
+}

@@ -73,7 +73,10 @@ export default function Home() {
           className="relative h-full w-full overflow-auto"
         >
           <div className="absolute inset-0 flex overflow-hidden">
-            <div id="tab-general" className="absolute left-0 h-full w-[256px]">
+            <div
+              id="tab-general"
+              className="absolute left-0 h-full w-[256px] overflow-y-auto"
+            >
               <General />
             </div>
             <div

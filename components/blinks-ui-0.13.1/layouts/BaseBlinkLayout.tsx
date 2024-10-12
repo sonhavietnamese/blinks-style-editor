@@ -69,14 +69,7 @@ const Linkable = ({
   children: ReactNode | ReactNode[]
 }) =>
   url ? (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-    >
-      {children}
-    </a>
+    <span className={className}>{children}</span>
   ) : (
     <div className={className}>{children}</div>
   )
@@ -218,9 +211,7 @@ export const BaseBlinkLayout = ({
         <div className="flex flex-col p-5">
           <div className="mb-2 flex items-center gap-2">
             {websiteUrl && (
-              <a
-                href={websiteUrl}
-                target="_blank"
+              <span
                 className="text-subtext group inline-flex items-center truncate hover:cursor-pointer"
                 rel="noopener noreferrer"
               >
@@ -228,19 +219,14 @@ export const BaseBlinkLayout = ({
                 <span className="text-text-link group-hover:text-text-link-hover transition-colors group-hover:underline motion-reduce:transition-none">
                   {websiteText ?? websiteUrl}
                 </span>
-              </a>
+              </span>
             )}
             {websiteText && !websiteUrl && (
               <span className="text-subtext text-text-link inline-flex items-center truncate">
                 {websiteText}
               </span>
             )}
-            <a
-              href="https://docs.dialect.to/documentation/actions/security"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center"
-            >
+            <span className="flex items-center">
               {securityState === "malicious" && (
                 <Badge
                   variant="error"
@@ -261,7 +247,7 @@ export const BaseBlinkLayout = ({
                   icon={<InfoShieldIcon width={13} height={13} />}
                 />
               )}
-            </a>
+            </span>
           </div>
           <span className="text-text text-text-primary mb-0.5 font-semibold">
             {title}
@@ -353,12 +339,12 @@ const buildDefaultFormValues = (
         if (i.type === "checkbox") {
           return [
             i.name,
-            i.options?.filter((o) => o.selected).map((o) => o.value),
+            i.options?.filter((o: any) => o.selected).map((o: any) => o.value),
           ]
         }
 
         return i.type === "radio" || i.type === "select"
-          ? [i.name, i.options?.find((o) => o.selected)?.value]
+          ? [i.name, i.options?.find((o: any) => o.selected)?.value]
           : null
       })
       .filter((i) => !!i),
