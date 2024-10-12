@@ -31,6 +31,7 @@ type NumberChangeEvent = {
 export default function Home() {
   const { stack } = useTabs()
   const container = useRef<HTMLDivElement>(null)
+  const app = useRef<HTMLDivElement>(null)
 
   const currentTab = stack[stack.length - 1]
   const beforeTab = stack[stack.length - 2]
@@ -42,7 +43,7 @@ export default function Home() {
       if (!beforeTab || !currentTab) return
 
       const animationProps = {
-        duration: 0.2,
+        duration: 0.3,
         ease: "power2.out",
       }
 
@@ -50,24 +51,30 @@ export default function Home() {
         gsap.fromTo(
           `#tab-${beforeTab.id}`,
           { left: 0, opacity: 1 },
-          { ...animationProps, left: -256, opacity: 0 },
+          { ...animationProps, left: -500, opacity: 0 },
         )
         gsap.fromTo(
           `#tab-${currentTab.id}`,
-          { left: 256, opacity: 0 },
+          { left: 500, opacity: 0 },
           { ...animationProps, left: 0, opacity: 1 },
         )
       } else {
         gsap.fromTo(
           `#tab-${beforeTab.id}`,
           { left: 0, opacity: 1 },
-          { ...animationProps, left: 256, opacity: 0 },
+          { ...animationProps, left: 500, opacity: 0 },
         )
         gsap.fromTo(
           `#tab-${currentTab.id}`,
-          { left: -256, opacity: 0 },
+          { left: -500, opacity: 0 },
           { ...animationProps, left: 0, opacity: 1 },
         )
+      }
+
+      if (currentTab.id === "code") {
+        gsap.to(app.current, { width: "500px", ...animationProps })
+      } else {
+        gsap.to(app.current, { width: "18rem", ...animationProps })
       }
     },
     {
@@ -94,8 +101,11 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="bg-1/2 relative grid h-screen w-screen grid-cols-[18rem_1fr] overflow-hidden bg-[#f7f7f7] bg-dot bg-[length:20px_20px] p-4 text-[#373737]">
-      <aside className="relative col-span-1 flex h-full w-full flex-col rounded-[12px] bg-[#fff] p-4 shadow-sm">
+    <main className="bg-1/2 relative grid h-screen w-screen grid-cols-[min-content_1fr] overflow-hidden bg-[#f7f7f7] bg-dot bg-[length:20px_20px] p-4 text-[#373737]">
+      <aside
+        ref={app}
+        className="relative col-span-1 flex h-full w-[18rem] flex-col rounded-[12px] bg-[#fff] p-4 shadow-sm"
+      >
         <Tabs />
         <section
           ref={container}
@@ -110,19 +120,19 @@ export default function Home() {
             </div>
             <div
               id="tab-code"
-              className="absolute left-[256px] h-full w-[256px]"
+              className="absolute left-[500px] h-full w-[468px] overflow-y-auto"
             >
               <Code />
             </div>
             <div
               id="tab-color"
-              className="absolute left-[256px] h-full w-[256px]"
+              className="absolute left-[500px] h-full w-[256px]"
             >
               <Color />
             </div>
             <div
               id="tab-settings"
-              className="absolute left-[512px] h-full w-[256px]"
+              className="absolute left-[500px] h-full w-[256px]"
             >
               <Settings />
             </div>

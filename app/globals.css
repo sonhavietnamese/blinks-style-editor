@@ -386,3 +386,12 @@ body {
   background-size: 5px 5px;
   background-position: top left;
 }
+
+.cm-editor {
+  border: none;
+  outline: none;
+}
+.cm-editor.cm-focused {
+  border: none;
+  outline: none;
+}
