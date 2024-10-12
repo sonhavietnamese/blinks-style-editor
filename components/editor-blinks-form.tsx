@@ -1,9 +1,11 @@
 import { useAction } from "@dialectlabs/blinks"
 import { useActionSolanaWalletAdapter } from "@dialectlabs/blinks/hooks/solana"
 import { BaseBlinkLayout } from "./blinks-ui-0.13.1/layouts/BaseBlinkLayout"
+import { useId } from "react"
 
 export default function EditorBlinksForm() {
   const actionApiUrl = "https://blinkman.sendarcade.fun/api/actions/blinkman"
+  const id = useId()
 
   return (
     <BaseBlinkLayout
@@ -95,7 +97,7 @@ export default function EditorBlinksForm() {
       supportability={{
         isSupported: true,
       }}
-      id={"123"}
+      id={id}
     />
   )
 }

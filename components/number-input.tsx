@@ -1,14 +1,34 @@
+import { ee } from "@/libs/listener"
+import { useEffect, useState } from "react"
+
 interface NumberInputProps {
   label: string
-  value: number
-  onChange: (value: number) => void
+  variable?: string
+  unit?: string
 }
 
 export default function NumberInput({
   label,
-  value,
-  onChange,
+  variable = "--variable",
+  unit = "rem",
 }: NumberInputProps) {
+  const [value, setValue] = useState("")
+
+  useEffect(() => {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(
+      variable.replace("--", "--r-"),
+    )
+
+    const number = parseFloat(value)
+
+    setValue(number.toString())
+  }, [variable])
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    ee.emit("number-change", { variable, value: e.target.value, unit })
+    setValue(e.target.value)
+  }
+
   return (
     <div className="w-full">
       <div className="flex flex-col gap-2">
@@ -33,10 +53,9 @@ export default function NumberInput({
             </svg>
           </div>
           <input
-            className="relative block w-full rounded-md border border-[#e6e6e6] bg-white p-2 text-xs transition-shadow ease-linear"
-            readOnly
-            value="12"
-            style={{ cursor: "pointer", paddingLeft: "1.75rem" }}
+            className="relative block w-full cursor-pointer rounded-md border border-[#e6e6e6] bg-white p-2 pl-[1.75rem] text-xs transition-shadow ease-linear"
+            value={value}
+            onChange={onInputChange}
           ></input>
           <div className="absolute bottom-0 right-0 top-0 z-[2] flex cursor-ew-resize select-none items-center px-2 text-[12px]">
             <kbd className="rounded bg-[#ebebeb] p-1.5 py-1 text-[11px] leading-none">

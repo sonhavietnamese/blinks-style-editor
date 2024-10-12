@@ -7,7 +7,7 @@ export default function General() {
   return (
     <>
       <div className="flex items-center gap-x-1.5 text-sm">
-        <span>General</span>
+        <h2>General</h2>
       </div>
 
       <Container />

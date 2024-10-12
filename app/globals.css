@@ -6,6 +6,74 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --r-blink-bg-primary: #202327;
+  --r-blink-bg-secondary: #262a2d;
+
+  --r-blink-stroke-error: #ff6565;
+  --r-blink-stroke-primary: #1d9bf0;
+  --r-blink-stroke-secondary: #3d4144;
+  --r-blink-stroke-warning: #ffb545;
+
+  --r-blink-border-radius-rounded-lg: 0.25rem;
+  --r-blink-border-radius-rounded-xl: 0.5rem;
+  --r-blink-border-radius-rounded-2xl: 1.125rem;
+
+  --r-blink-button: #1d9bf0;
+  --r-blink-text-button: #ffffff;
+
+  --r-blink-button-disabled: #2f3336;
+  --r-blink-text-button-disabled: #768088;
+
+  --r-blink-button-hover: #3087da;
+
+  --r-blink-button-success: #00ae661a;
+  --r-blink-text-button-success: #12dc88;
+
+  --r-blink-border-radius-rounded-button: 600rem;
+
+  --r-blink-icon-error: #ff6565;
+  --r-blink-icon-error-hover: #ff7a7a;
+  --r-blink-icon-primary: #6e767d;
+  --r-blink-icon-primary-hover: #949ca4;
+  --r-blink-icon-warning: #ffb545;
+  --r-blink-icon-warning-hover: #ffc875;
+
+  --r-blink-input-bg: #202327;
+  --r-blink-input-stroke: #3d4144;
+  --r-blink-text-input: #ffffff;
+
+  --r-blink-input-bg-selected: #1d9bf0;
+  --r-blink-input-stroke-selected: #1d9bf0;
+
+  --r-blink-input-bg-disabled: #2f3336;
+  --r-blink-input-stroke-disabled: #2f3336;
+  --r-blink-text-input-disabled: #566470;
+
+  --r-blink-text-input-placeholder: #6e767d;
+  --r-blink-input-stroke-error: #ff6565;
+  --r-blink-input-stroke-hover: #6e767d;
+  --r-blink-border-radius-rounded-input: 1.25rem;
+  --r-blink-border-radius-rounded-input-standalone: 1.75rem;
+
+  --r-blink-text-link: #6e767d;
+  --r-blink-text-link-hover: #949ca4;
+  --r-blink-text-primary: #ffffff;
+  --r-blink-text-secondary: #949ca4;
+  --r-blink-text-success: #12dc88;
+  --r-blink-text-warning: #ffb545;
+  --r-blink-text-warning-hover: #ffc875;
+
+  --r-blink-text-brand: #35aeff;
+  --r-blink-text-error: #ff6565;
+  --r-blink-text-error-hover: #ff7a7a;
+
+  --r-blink-transparent-error: #aa00001a;
+  --r-blink-transparent-grey: #6e767d1a;
+  --r-blink-transparent-warning: #a966001a;
+
+  --r-blink-shadow-container: 0px 2px 8px 0px rgba(59, 176, 255, 0.22),
+    0px 1px 48px 0px rgba(29, 155, 240, 0.24);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,23 +102,6 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-.blink {
-  container-type: inline-size;
-}
-
-.blink input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="datetime-local"]::-webkit-inner-spin-button,
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  /*
-    this is very dirty hack to make picker openable, since in chrome ext environment, programmatic `showPicker` doesn't work and/or crashes the browser
-    https://issues.chromium.org/issues/356419161
-  */
-  position: absolute;
-  left: 1rem;
-  opacity: 0;
 }
 
 .react-colorful {
@@ -246,198 +297,92 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     0px 3.579px 2.863px 0px rgba(0, 0, 0, 0.02);
 }
 
-/* 
-.blink.x-dark {
-  --blink-bg-primary: #202327;
-
-  --blink-button: #1d9bf0;
-  --blink-button-disabled: #2f3336;
-  --blink-button-hover: #3087da;
-  --blink-button-success: #00ae661a;
-  --blink-text-button: #ffffff;
-  --blink-text-button-disabled: #768088;
-  --blink-text-button-success: #12dc88;
-  --blink-border-radius-rounded-button: 600rem;
-
-  --blink-icon-error: #ff6565;
-  --blink-icon-error-hover: #ff7a7a;
-  --blink-icon-primary: #6e767d;
-  --blink-icon-primary-hover: #949ca4;
-  --blink-icon-warning: #ffb545;
-  --blink-icon-warning-hover: #ffc875;
-
-  --blink-input-bg: #202327;
-  --blink-input-stroke: #3d4144;
-  --blink-input-stroke-disabled: #36362f;
-  --blink-input-stroke-error: #ff6565;
-  --blink-input-stroke-hover: #6e767d;
-  --blink-input-stroke-selected: #1d9bf0;
-  --blink-text-input: #ffffff;
-  --blink-text-input-disabled: #566470;
-  --blink-text-input-placeholder: #6e767d;
-  --blink-border-radius-rounded-input: 600rem;
-
-  --blink-stroke-error: #ff6565;
-  --blink-stroke-primary: #1d9bf0;
-  --blink-stroke-secondary: #3d4144;
-  --blink-stroke-warning: #ffb545;
-
-  --blink-text-brand: #35aeff;
-
-  --blink-text-error: #ff6565;
-  --blink-text-error-hover: #ff7a7a;
-
-  --blink-text-link: #6e767d;
-  --blink-text-link-hover: #949ca4;
-  --blink-text-primary: #ffffff;
-  --blink-text-secondary: #949ca4;
-  --blink-text-success: #12dc88;
-  --blink-text-warning: #ffb545;
-  --blink-text-warning-hover: #ffc875;
-
-  --blink-transparent-error: #aa00001a;
-  --blink-transparent-grey: #6e767d1a;
-  --blink-transparent-warning: #a966001a;
-
-  --blink-border-radius-rounded-lg: 0.25rem;
-  --blink-border-radius-rounded-xl: 0.5rem;
-  --blink-border-radius-rounded-2xl: 1.125rem;
-
-  --blink-shadow-container: 0px 2px 8px 0px rgba(59, 176, 255, 0.22),
-    0px 1px 48px 0px rgba(29, 155, 240, 0.24);
-} */
-
 .custom {
-  --blink-bg-primary: #202327;
+  /* General */
+  --blink-bg-primary: var(--r-blink-bg-primary);
+  --blink-bg-secondary: var(--r-blink-bg-secondary);
 
-  --blink-button: #1d9bf0;
-  --blink-button-disabled: #2f3336;
-  --blink-button-hover: #3087da;
-  --blink-button-success: #00ae661a;
-  --blink-text-button: #ffffff;
-  --blink-text-button-disabled: #768088;
-  --blink-text-button-success: #12dc88;
-  --blink-border-radius-rounded-button: 600rem;
+  --blink-stroke-error: var(--r-blink-stroke-error);
+  --blink-stroke-primary: var(--r-blink-stroke-primary);
+  --blink-stroke-secondary: var(--r-blink-stroke-secondary);
+  --blink-stroke-warning: var(--r-blink-stroke-warning);
 
-  --blink-icon-error: #ff6565;
-  --blink-icon-error-hover: #ff7a7a;
-  --blink-icon-primary: #6e767d;
-  --blink-icon-primary-hover: #949ca4;
-  --blink-icon-warning: #ffb545;
-  --blink-icon-warning-hover: #ffc875;
+  --blink-border-radius-rounded-lg: var(--r-blink-border-radius-rounded-lg);
+  --blink-border-radius-rounded-xl: var(--r-blink-border-radius-rounded-xl);
+  --blink-border-radius-rounded-2xl: var(--r-blink-border-radius-rounded-2xl);
 
-  --blink-input-bg: #202327;
-  --blink-input-stroke: #3d4144;
-  --blink-input-stroke-disabled: #36362f;
-  --blink-input-stroke-error: #ff6565;
-  --blink-input-stroke-hover: #6e767d;
-  --blink-input-stroke-selected: #1d9bf0;
-  --blink-text-input: #ffffff;
-  --blink-text-input-disabled: #566470;
-  --blink-text-input-placeholder: #6e767d;
-  --blink-border-radius-rounded-input: 600rem;
+  --blink-button: var(--r-blink-button);
+  --blink-text-button: var(--r-blink-text-button);
 
-  --blink-stroke-error: #ff6565;
-  --blink-stroke-primary: #1d9bf0;
-  --blink-stroke-secondary: #3d4144;
-  --blink-stroke-warning: #ffb545;
+  --blink-button-disabled: var(--r-blink-button-disabled);
+  --blink-text-button-disabled: var(--r-blink-text-button-disabled);
 
-  --blink-text-brand: #35aeff;
+  --blink-button-hover: var(--r-blink-button-hover);
 
-  --blink-text-error: #ff6565;
-  --blink-text-error-hover: #ff7a7a;
+  --blink-button-success: var(--r-blink-button-success);
+  --blink-text-button-success: var(--r-blink-text-button-success);
 
-  --blink-text-link: #6e767d;
-  --blink-text-link-hover: #949ca4;
-  --blink-text-primary: #ffffff;
-  --blink-text-secondary: #949ca4;
-  --blink-text-success: #12dc88;
-  --blink-text-warning: #ffb545;
-  --blink-text-warning-hover: #ffc875;
+  --blink-border-radius-rounded-button: var(
+    --r-blink-border-radius-rounded-button
+  );
 
-  --blink-transparent-error: #aa00001a;
-  --blink-transparent-grey: #6e767d1a;
-  --blink-transparent-warning: #a966001a;
+  --blink-icon-error: var(--r-blink-icon-error);
+  --blink-icon-error-hover: var(--r-blink-icon-error-hover);
+  --blink-icon-primary: var(--r-blink-icon-primary);
+  --blink-icon-primary-hover: var(--r-blink-icon-primary-hover);
+  --blink-icon-warning: var(--r-blink-icon-warning);
+  --blink-icon-warning-hover: var(--r-blink-icon-warning-hover);
 
-  --blink-border-radius-rounded-lg: 0.25rem;
-  --blink-border-radius-rounded-xl: 0.5rem;
-  --blink-border-radius-rounded-2xl: 1.125rem;
-  --blink-border-radius-rounded-button: 600rem;
-  --blink-border-radius-rounded-input: 1.25rem;
-  --blink-border-radius-rounded-input-standalone: 1.75rem;
+  --blink-input-bg: var(--r-blink-input-bg);
+  --blink-input-stroke: var(--r-blink-input-stroke);
+  --blink-text-input: var(--r-blink-text-input);
 
-  --blink-shadow-container: 0px 2px 8px 0px rgba(59, 176, 255, 0.22),
-    0px 1px 48px 0px rgba(29, 155, 240, 0.24);
+  --blink-input-bg-selected: var(--r-blink-input-bg-selected);
+  --blink-input-stroke-selected: var(--r-blink-input-stroke-selected);
+
+  --blink-input-bg-disabled: var(--r-blink-input-bg-disabled);
+  --blink-input-stroke-disabled: var(--r-blink-input-stroke-disabled);
+  --blink-text-input-disabled: var(--r-blink-text-input-disabled);
+
+  --blink-text-input-placeholder: var(--r-blink-text-input-placeholder);
+
+  --blink-input-stroke-error: var(--r-blink-input-stroke-error);
+  --blink-input-stroke-hover: var(--r-blink-input-stroke-hover);
+  --blink-border-radius-rounded-input: var(
+    --r-blink-border-radius-rounded-input
+  );
+  --blink-border-radius-rounded-input-standalone: var(
+    --r-blink-border-radius-rounded-input-standalone
+  );
+
+  --blink-text-link: var(--r-blink-text-link);
+  --blink-text-link-hover: var(--r-blink-text-link-hover);
+  --blink-text-primary: var(--r-blink-text-primary);
+  --blink-text-secondary: var(--r-blink-text-secondary);
+  --blink-text-success: var(--r-blink-text-success);
+  --blink-text-warning: var(--r-blink-text-warning);
+  --blink-text-warning-hover: var(--r-blink-text-warning-hover);
+
+  --blink-text-brand: var(--r-blink-text-brand);
+  --blink-text-error: var(--r-blink-text-error);
+  --blink-text-error-hover: var(--r-blink-text-error-hover);
+
+  --blink-transparent-error: var(--r-blink-transparent-error);
+  --blink-transparent-grey: var(--r-blink-transparent-grey);
+  --blink-transparent-warning: var(--r-blink-transparent-warning);
+
+  --blink-shadow-container: var(--r-blink-shadow-container);
 }
 
-.test {
-  /* General */
-  --blink-bg-primary: #202327;
-  --blink-bg-secondary: #262a2d;
-
-  --blink-stroke-error: #ff6565;
-  --blink-stroke-primary: #1d9bf0;
-  --blink-stroke-secondary: #3d4144;
-  --blink-stroke-warning: #ffb545;
-
-  --blink-border-radius-rounded-lg: 0.25rem;
-  --blink-border-radius-rounded-xl: 0.5rem;
-  --blink-border-radius-rounded-2xl: 1.125rem;
-
-  --blink-button: #1d9bf0;
-  --blink-text-button: #ffffff;
-
-  --blink-button-disabled: #2f3336;
-  --blink-text-button-disabled: #768088;
-
-  --blink-button-hover: #3087da;
-
-  --blink-button-success: #00ae661a;
-  --blink-text-button-success: #12dc88;
-
-  --blink-border-radius-rounded-button: 600rem;
-
-  --blink-icon-error: #ff6565;
-  --blink-icon-error-hover: #ff7a7a;
-  --blink-icon-primary: #6e767d;
-  --blink-icon-primary-hover: #949ca4;
-  --blink-icon-warning: #ffb545;
-  --blink-icon-warning-hover: #ffc875;
-
-  --blink-input-bg: #202327;
-  --blink-input-stroke: #3d4144;
-  --blink-text-input: #ffffff;
-
-  --blink-input-bg-selected: #1d9bf0;
-  --blink-input-stroke-selected: #1d9bf0;
-
-  --blink-input-bg-disabled: #2f3336;
-  --blink-input-stroke-disabled: #2f3336;
-  --blink-text-input-disabled: #566470;
-
-  --blink-text-input-placeholder: #6e767d;
-
-  --blink-input-stroke-error: #ff6565;
-  --blink-input-stroke-hover: #6e767d;
-  --blink-border-radius-rounded-input: 1.25rem;
-  --blink-border-radius-rounded-input-standalone: 1.75rem;
-
-  --blink-text-link: #6e767d;
-  --blink-text-link-hover: #949ca4;
-  --blink-text-primary: #ffffff;
-  --blink-text-secondary: #949ca4;
-  --blink-text-success: #12dc88;
-  --blink-text-warning: #ffb545;
-  --blink-text-warning-hover: #ffc875;
-
-  --blink-text-brand: #35aeff;
-  --blink-text-error: #ff6565;
-  --blink-text-error-hover: #ff7a7a;
-
-  --blink-transparent-error: #aa00001a;
-  --blink-transparent-grey: #6e767d1a;
-  --blink-transparent-warning: #a966001a;
-
-  --blink-shadow-container: 0px 2px 8px 0px rgba(59, 176, 255, 0.22),
-    0px 1px 48px 0px rgba(29, 155, 240, 0.24);
+.checker {
+  height: 100%;
+  width: 100%;
+  background: conic-gradient(
+    #0000002f 90deg,
+    #ffffff2f 90deg 180deg,
+    #0000002f 180deg 270deg
+  );
+  background-repeat: repeat;
+  background-size: 5px 5px;
+  background-position: top left;
 }

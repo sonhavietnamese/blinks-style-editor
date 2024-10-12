@@ -12,9 +12,21 @@ import EditorMiniblinkForm from "@/components/editor-miniblink-form"
 import EditorMiniblinkInputs from "@/components/editor-miniblink-inputs"
 import Tabs from "@/components/tabs"
 import { useTabs } from "@/hooks/use-tabs"
+import { ee } from "@/libs/listener"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
+
+type ColorChangeEvent = {
+  variable: string
+  color: string
+}
+
+type NumberChangeEvent = {
+  variable: string
+  value: string
+  unit: string
+}
 
 export default function Home() {
   const { stack } = useTabs()
@@ -63,6 +75,23 @@ export default function Home() {
       dependencies: [direction, stack, currentTab, beforeTab],
     },
   )
+
+  useEffect(() => {
+    ee.on("color-change", (data: ColorChangeEvent) => {
+      document.documentElement.style.setProperty(
+        data.variable.replace("--", "--r-"),
+        data.color,
+      )
+    })
+    ee.on("number-change", (data: NumberChangeEvent) => {
+      console.log(data)
+      console.log(`${data.value}${data.unit}`)
+      document.documentElement.style.setProperty(
+        data.variable.replace("--", "--r-"),
+        `${data.value}${data.unit}`,
+      )
+    })
+  }, [])
 
   return (
     <main className="bg-1/2 relative grid h-screen w-screen grid-cols-[18rem_1fr] overflow-hidden bg-[#f7f7f7] bg-dot bg-[length:20px_20px] p-4 text-[#373737]">
@@ -113,11 +142,11 @@ export default function Home() {
             <EditorBlinksForm />
           </div>
 
-          <div className="w-[750px] max-w-[350px]">
+          {/* <div className="w-[750px] max-w-[350px]">
             <EditorMiniblinkInputs />
             <EditorMiniblinkForm />
             <EditorMiniblinkButtons />
-          </div>
+          </div> */}
         </div>
       </section>
     </main>

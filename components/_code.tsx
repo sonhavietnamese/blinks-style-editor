@@ -1,15 +1,11 @@
-import { useState } from "react"
-
 export default function Code() {
-  const [code, setCode] = useState(`
-.container {  
-  background-color: red;
-}
-  `)
-
   return (
-    <section>
-      <h2>Code</h2>
-    </section>
+    <>
+      <div className="flex items-center gap-x-1.5 text-sm">
+        <h2>Code</h2>
+      </div>
+
+      <section></section>
+    </>
   )
 }

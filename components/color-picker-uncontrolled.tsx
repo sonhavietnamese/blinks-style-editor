@@ -1,51 +1,23 @@
 "use client"
 
-import { ee } from "@/libs/listener"
 import { cn } from "@/libs/utils"
 import * as Popover from "@radix-ui/react-popover"
-import { useEffect, useState } from "react"
 import { HexAlphaColorPicker } from "react-colorful"
 
 interface ColorPickerProps {
-  label?: string
-  variable?: string
+  value: string
+  setValue: (value: string) => void
 }
 
-export default function ColorPicker({
-  label,
-  variable = "--test-var",
+export default function ColorPickerUncontrolled({
+  value,
+  setValue,
 }: ColorPickerProps) {
-  const [color, setColor] = useState("")
-
-  const handleInputChange = (color: string) => {
-    const hex = color.startsWith("#") ? color : `#${color}`
-    setColor(hex)
-    ee.emit("color-change", { variable, color: hex })
-  }
-
-  const handlePickerChange = (color: string) => {
-    setColor(color)
-    ee.emit("color-change", { variable, color })
-  }
-
-  useEffect(() => {
-    const value = getComputedStyle(document.documentElement).getPropertyValue(
-      variable.replace("--", "--r-"),
-    )
-
-    setColor(value)
-  }, [variable])
-
   return (
     <Popover.Root>
       <Popover.Trigger asChild className="">
         <div className="w-full">
           <div className="flex flex-col gap-1">
-            {label && (
-              <label className="mt-3 block select-none text-[0.6875rem] text-[#000000]/70">
-                {label}
-              </label>
-            )}
             <div className="relative">
               <div>
                 <div className="absolute left-[6px] top-[6px] h-[19px] w-[19px] cursor-pointer overflow-hidden rounded-[3px]">
@@ -53,7 +25,7 @@ export default function ColorPicker({
                   <div
                     className={cn("absolute inset-0 z-[2]")}
                     style={{
-                      backgroundColor: color,
+                      backgroundColor: value,
                       boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px inset",
                     }}
                   ></div>
@@ -62,8 +34,8 @@ export default function ColorPicker({
               <input
                 type="text"
                 className="relative block w-full rounded-md border border-[#e6e6e6] bg-[#fefefe] p-[0.4rem_0.75rem_0.4rem_2.25rem] text-xs transition-shadow ease-linear"
-                value={color}
-                onChange={(e) => handleInputChange(e.target.value)}
+                value={value}
+                onChange={(e) => setValue?.(e.target.value)}
               ></input>
             </div>
           </div>
@@ -71,7 +43,7 @@ export default function ColorPicker({
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content className="relative top-2 z-[99999999] m-[0.25rem_0.75rem] animate-content-enter rounded-[0.5rem] bg-[#fff] p-[0.35rem] shadow-[0_0_0_1px_#e6e6e6,_0_1px_4px_rgba(0,0,0,0.04)]">
-          <HexAlphaColorPicker onChange={handlePickerChange} color={color} />
+          <HexAlphaColorPicker onChange={setValue} color={value} />
 
           <span className="absolute left-[95.5px] top-0 origin-[center_0px] rotate-180">
             <div className='relative rotate-180 before:absolute before:bottom-[-1px] before:left-0 before:right-0 before:z-[3] before:h-[1px] before:bg-[#fff] before:content-[""]'>
