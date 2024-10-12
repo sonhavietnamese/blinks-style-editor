@@ -1,6 +1,6 @@
 import { TABS, useTabs } from "@/hooks/use-tabs"
 import { cn } from "@/libs/utils"
-import { Tab, TabItem } from "@/types"
+import { TabItem } from "@/types"
 import { useGSAP } from "@gsap/react"
 import * as Tooltip from "@radix-ui/react-tooltip"
 import gsap from "gsap"
@@ -8,7 +8,7 @@ import { useRef } from "react"
 
 export default function Tabs() {
   const container = useRef<HTMLDivElement>(null)
-  const { activeTab, setActiveTab, pushTab, stack } = useTabs()
+  const { activeTab, setActiveTab, pushTab } = useTabs()
 
   useGSAP(
     () => {
@@ -23,7 +23,9 @@ export default function Tabs() {
 
   const switchTab = (tab: TabItem) => {
     setActiveTab(tab)
-    pushTab(tab)
+    if (tab.id !== activeTab.id) {
+      pushTab(tab)
+    }
   }
 
   return (

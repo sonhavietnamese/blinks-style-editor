@@ -26,7 +26,6 @@ export default function EditorBlinksButtons() {
           ctaType: "button",
           onClick: () => {},
         },
-
         {
           text: "Disabled",
           loading: false,
@@ -59,7 +58,7 @@ export default function EditorBlinksButtons() {
       supportability={{
         isSupported: true,
       }}
-      id={id}
+      id={"editor-blinks-buttons"}
     />
   )
 }

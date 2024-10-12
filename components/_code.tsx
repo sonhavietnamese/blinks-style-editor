@@ -1,8 +1,11 @@
+import { useTabs } from "@/hooks/use-tabs"
 import { css } from "@codemirror/lang-css"
 import { tags as t } from "@lezer/highlight"
 import { createTheme } from "@uiw/codemirror-themes"
 import CodeMirror from "@uiw/react-codemirror"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useCopyToClipboard } from "usehooks-ts"
+import { ROOT_VARIABLES } from "@/constants"
 
 export default function Code() {
   const [code, setCode] = useState(`.custom {
@@ -61,7 +64,21 @@ export default function Code() {
     0px 1px 48px 0px rgba(62, 177, 255, 0.24);
 }`)
 
-  const myTheme = useMemo(
+  const [copiedText, copy] = useCopyToClipboard()
+
+  const handleCopy = () => () => {
+    copy(code)
+      .then(() => {
+        console.log("Copied!", { code })
+      })
+      .catch((error) => {
+        console.error("Failed to copy!", error)
+      })
+  }
+
+  const { activeTab } = useTabs()
+
+  const theme = useMemo(
     () =>
       createTheme({
         theme: "light",
@@ -95,12 +112,36 @@ export default function Code() {
     [],
   )
 
+  useEffect(() => {
+    const values: Record<string, string> = {}
+    ROOT_VARIABLES.forEach((variable) => {
+      values[variable] = getComputedStyle(
+        document.documentElement,
+      ).getPropertyValue(variable)
+    })
+
+    setCode(createCode(ROOT_VARIABLES, values))
+  }, [activeTab])
+
+  const createCode = (variables: string[], values: Record<string, string>) => {
+    return `.custom {\n${variables
+      .map(
+        (variable) =>
+          `  ${variable.replace("--r-", "--")}: ${values[variable]};`,
+      )
+      .join("\n")}
+}`
+  }
+
   return (
     <>
       <div className="flex w-full items-center justify-between text-sm">
         <h2>Code</h2>
 
-        <button className="flex items-center justify-center space-x-1 rounded-md bg-[#e6e6e6]/50 p-1 px-2 text-black/60 ease-in-out hover:bg-[#e6e6e6]/80">
+        <button
+          onClick={handleCopy}
+          className="flex items-center justify-center space-x-1 rounded-md bg-[#e6e6e6]/50 p-1 px-2 text-black/60 ease-in-out hover:bg-[#e6e6e6]/80"
+        >
           <span className="text-xs">Copy</span>
         </button>
       </div>
@@ -108,7 +149,8 @@ export default function Code() {
       <section className="mt-2 flex flex-col gap-2">
         <div className="relative">
           <CodeMirror
-            theme={myTheme}
+            readOnly
+            theme={theme}
             value={code}
             height="480px"
             className="rounded-lg text-[12px] active:outline-none"

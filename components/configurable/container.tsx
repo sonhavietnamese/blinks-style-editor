@@ -1,20 +1,13 @@
 "use client"
 
-import * as Popover from "@radix-ui/react-popover"
-import NumberInput from "@/components/number-input"
 import ColorPicker from "@/components/color-picker"
 import ColorPickerUncontrolled from "@/components/color-picker-uncontrolled"
-import { useEffect, useState } from "react"
+import NumberInput from "@/components/number-input"
 import { rgbaToHexA } from "@/libs/utils"
+import { Shadow } from "@/types"
+import * as Popover from "@radix-ui/react-popover"
 import { Minus } from "lucide-react"
-
-type Shadow = {
-  x: number
-  y: number
-  blur: number
-  spread: number
-  color: string
-}
+import { useEffect, useState } from "react"
 
 export default function Container() {
   const [shadows, setShadows] = useState<Shadow[]>([])
@@ -56,21 +49,27 @@ export default function Container() {
   ) => {
     const newShadows = [...shadows]
     newShadows[index] = { ...newShadows[index], [key]: value }
-    setShadows(newShadows)
+    updateShadow(newShadows)
 
-    document.documentElement.style.setProperty(
-      "--r-blink-shadow-container",
-      newShadows
-        .map(
-          (sd) => `${sd.x}px ${sd.y}px ${sd.blur}px ${sd.spread}px ${sd.color}`,
-        )
-        .join(","),
-    )
+    setShadows(newShadows)
   }
 
   const removeShadow = (index: number) => {
     const newShadows = shadows.filter((_, i) => i !== index)
     setShadows(newShadows)
+
+    updateShadow(newShadows)
+  }
+
+  const updateShadow = (shadows: Shadow[]) => {
+    document.documentElement.style.setProperty(
+      "--r-blink-shadow-container",
+      shadows
+        .map(
+          (sd) => `${sd.x}px ${sd.y}px ${sd.blur}px ${sd.spread}px ${sd.color}`,
+        )
+        .join(","),
+    )
   }
 
   return (
