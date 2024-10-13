@@ -74,6 +74,13 @@ export default function Home() {
         data.variable.replace("--", "--r-"),
         data.color,
       )
+
+      if (data.variable === "--blink-bg-primary") {
+        document.documentElement.style.setProperty(
+          "--r-blink-input-bg",
+          data.color,
+        )
+      }
     })
     ee.on("number-change", (data: NumberChangeEvent) => {
       document.documentElement.style.setProperty(

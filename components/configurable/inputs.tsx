@@ -8,7 +8,7 @@ export default function Inputs() {
         <h4 className="text-[12px] font-semibold text-[#000000]/70">Inputs</h4>
       </div>
 
-      <ColorPicker label="Background" variable="--blink-input-bg" />
+      {/* <ColorPicker label="Background" variable="--blink-input-bg" /> */}
       <ColorPicker label="Stroke Color" variable="--blink-input-stroke" />
       <ColorPicker label="Text Color" variable="--blink-text-input" />
 
