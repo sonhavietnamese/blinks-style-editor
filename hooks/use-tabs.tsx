@@ -1,6 +1,6 @@
-import { create } from "zustand"
 import { Tab, TabItem } from "@/types"
-import { Code, Palette, Sparkle, Settings } from "lucide-react"
+import { Code, Settings, Sparkle } from "lucide-react"
+import { create } from "zustand"
 
 export const TABS: TabItem[] = [
   { id: Tab.General, index: 0, label: "General", icon: <Sparkle size={14} /> },

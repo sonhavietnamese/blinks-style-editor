@@ -4,7 +4,6 @@ import { create } from "zustand"
 export enum TextConfig {
   Error = "error",
   Success = "success",
-  Warning = "warning",
 }
 
 interface TextConfigState {

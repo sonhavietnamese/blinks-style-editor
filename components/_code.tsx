@@ -158,7 +158,7 @@ export default function Code() {
             readOnly
             theme={theme}
             value={code}
-            height="480px"
+            height="100%"
             className="rounded-lg text-[12px] active:outline-none"
             extensions={[css()]}
           />
