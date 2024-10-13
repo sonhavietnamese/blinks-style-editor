@@ -1,9 +1,25 @@
-import { useId } from "react"
-import { BaseBlinkLayout } from "./blinks-ui-0.13.1/layouts/BaseBlinkLayout"
+import { BaseButtonProps } from "@/components/blinks-ui-0.13.1/internal/inputs/types"
+import { BaseBlinkLayout } from "@/components/blinks-ui-0.13.1/layouts/BaseBlinkLayout"
+import { GENERATOR } from "@/components/generators/button"
+import { ButtonConfig, useButtonConfig } from "@/hooks/use-button-config"
+import { useEffect, useState } from "react"
 
 export default function EditorBlinksButtons() {
   const actionApiUrl = "https://blinkman.sendarcade.fun/api/actions/blinkman"
-  const id = useId()
+
+  const [buttonsConfig, setButtonsConfig] = useState<BaseButtonProps[]>([])
+
+  const { enabled: buttonEnabled } = useButtonConfig()
+
+  useEffect(() => {
+    setButtonsConfig(
+      Object.entries(buttonEnabled)
+        .map(([key, value]) => {
+          if (value) return GENERATOR[key as ButtonConfig]
+        })
+        .filter(Boolean) as BaseButtonProps[],
+    )
+  }, [buttonEnabled])
 
   return (
     <BaseBlinkLayout
@@ -17,48 +33,7 @@ export default function EditorBlinksButtons() {
       websiteText={new URL(actionApiUrl).hostname}
       securityState="trusted"
       disclaimer={undefined}
-      buttons={[
-        {
-          text: "Normal",
-          loading: false,
-          variant: "default",
-          disabled: false,
-          ctaType: "link",
-          onClick: () => {},
-        },
-        // {
-        //   text: "Long content",
-        //   loading: false,
-        //   variant: "default",
-        //   disabled: false,
-        //   ctaType: "button",
-        //   onClick: () => {},
-        // },
-        // {
-        //   text: "Disabled",
-        //   loading: false,
-        //   variant: "default",
-        //   disabled: true,
-        //   ctaType: "button",
-        //   onClick: () => {},
-        // },
-        // {
-        //   text: "Error",
-        //   loading: false,
-        //   variant: "error",
-        //   disabled: false,
-        //   ctaType: "button",
-        //   onClick: () => {},
-        // },
-        // {
-        //   text: "Success",
-        //   loading: false,
-        //   variant: "success",
-        //   disabled: false,
-        //   ctaType: "button",
-        //   onClick: () => {},
-        // },
-      ]}
+      buttons={buttonsConfig}
       inputs={undefined}
       form={undefined}
       error={undefined}

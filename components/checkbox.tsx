@@ -12,7 +12,7 @@ export default function Checkbox({
   onChange,
 }: CheckboxProps) {
   return (
-    <div className="relative flex w-full items-center justify-between rounded-md border border-[#e6e6e6] bg-[#fefefe] p-[0.4rem_0.75rem] text-xs transition-shadow ease-linear">
+    <div className="relative flex w-full select-none items-center justify-between rounded-md border border-[#e6e6e6] bg-[#fefefe] p-[0.4rem_0.75rem] text-xs transition-shadow ease-linear">
       <label htmlFor={id} className="text-xs text-[#000000]/70">
         {label}
       </label>

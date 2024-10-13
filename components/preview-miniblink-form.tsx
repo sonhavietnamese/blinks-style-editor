@@ -30,8 +30,8 @@ export default function EditorMiniblinkForm() {
             onClick: () => {},
           },
         }}
-        error={"Error"}
-        success={"Success"}
+        error={undefined}
+        success={undefined}
       />
     </div>
   )

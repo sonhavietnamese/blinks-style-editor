@@ -14,17 +14,24 @@ export default function EditorMiniblinkInputs() {
           type: "text",
           placeholder: "Text input",
           name: "name",
-          disabled: true,
+          disabled: false,
           required: false,
           min: undefined,
           max: undefined,
           pattern: undefined,
           description: undefined,
-          button: undefined,
+          button: {
+            text: "Button",
+            loading: false,
+            variant: "error",
+            disabled: false,
+            ctaType: "button",
+            onClick: () => {},
+          },
           options: undefined,
         }}
-        error={"Error"}
-        success={"Success"}
+        error={undefined}
+        success={undefined}
       />
     </div>
   )

@@ -1,9 +1,40 @@
-import { useId } from "react"
-import { BaseBlinkLayout } from "./blinks-ui-0.13.1/layouts/BaseBlinkLayout"
+import { BaseInputProps } from "@/components/blinks-ui-0.13.1/internal/inputs/types"
+import { BaseBlinkLayout } from "@/components/blinks-ui-0.13.1/layouts/BaseBlinkLayout"
+import { GENERATOR } from "@/components/generators/input"
+import { InputConfig, useInputConfig } from "@/hooks/use-input-config"
+import { useEffect, useState } from "react"
 
-export default function EditorBlinksButtons() {
+export default function EditorBlinksInputs() {
   const actionApiUrl = "https://blinkman.sendarcade.fun/api/actions/blinkman"
-  const id = useId()
+
+  const { enabled: inputEnabled } = useInputConfig()
+
+  const [inputsConfig, setInputsConfig] = useState<BaseInputProps[]>([])
+
+  useEffect(() => {
+    const newInputsConfig = Object.entries(inputEnabled)
+      .map(([key, value]) => {
+        const input = GENERATOR[key as InputConfig]
+        if (input) {
+          input.button = inputEnabled.button
+            ? {
+                text: "Button",
+                loading: false,
+                variant: "error",
+                disabled: false,
+                ctaType: "button",
+                onClick: () => {},
+              }
+            : undefined
+
+          input.disabled = inputEnabled.disabled
+        }
+        if (value) return input
+      })
+      .filter(Boolean) as BaseInputProps[]
+
+    setInputsConfig(newInputsConfig)
+  }, [inputEnabled])
 
   return (
     <BaseBlinkLayout
@@ -18,135 +49,14 @@ export default function EditorBlinksButtons() {
       securityState="trusted"
       disclaimer={undefined}
       buttons={undefined}
-      inputs={[
-        {
-          type: "text",
-          placeholder: "Text input",
-          name: "name",
-          disabled: true,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: undefined,
-          options: undefined,
-        },
-        {
-          type: "url",
-          placeholder: "URL input",
-          name: "name",
-          disabled: true,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: undefined,
-          options: undefined,
-        },
-        {
-          type: "select",
-          placeholder: "Select input",
-          name: "name",
-          disabled: false,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: {
-            text: "Save",
-            loading: false,
-            ctaType: "button",
-            onClick: () => {},
-          },
-          options: [
-            {
-              label: "Option 1",
-              value: "option1",
-            },
-            {
-              label: "Option 2",
-              value: "option2",
-            },
-            {
-              label: "Option 3",
-              value: "option3",
-            },
-          ],
-        },
-        {
-          type: "radio",
-          placeholder: "Radio input",
-          name: "name",
-          disabled: false,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: undefined,
-          options: [
-            {
-              label: "Option 1",
-              value: "option1",
-            },
-            {
-              label: "Option 2",
-              value: "option2",
-            },
-            {
-              label: "Option 3",
-              value: "option3",
-            },
-          ],
-        },
-        {
-          type: "date",
-          placeholder: "Date input",
-          name: "name",
-          disabled: false,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: {
-            text: "Save",
-            loading: false,
-            ctaType: "button",
-            onClick: () => {},
-          },
-          options: undefined,
-        },
-
-        {
-          type: "number",
-          placeholder: "Number input",
-          name: "name",
-          disabled: false,
-          required: false,
-          min: undefined,
-          max: undefined,
-          pattern: undefined,
-          description: undefined,
-          button: {
-            text: "Save",
-            loading: false,
-            ctaType: "button",
-            onClick: () => {},
-          },
-          options: undefined,
-        },
-      ]}
+      inputs={inputsConfig}
       form={undefined}
       error={undefined}
       success={undefined}
       supportability={{
         isSupported: true,
       }}
-      id={id}
+      id={"editor-blinks-inputs"}
     />
   )
 }

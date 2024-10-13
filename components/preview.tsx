@@ -2,35 +2,58 @@ import { usePreview } from "@/hooks/use-preview"
 import EditorBlinksButtons from "./preview-blinks-buttons"
 import EditorBlinksForm from "./preview-blinks-form"
 import EditorBlinksInputs from "./preview-blinks-inputs"
+import EditorMiniblinkInputs from "./preview-miniblink-inputs"
+import EditorMiniblinkForm from "./preview-miniblink-form"
+import EditorMiniblinkButtons from "./preview-miniblink-buttons"
 
 export default function Preview() {
-  const { enabled, setEnabled } = usePreview()
+  const { enabled, blinkStyleEnabled } = usePreview()
 
   return (
-    <div className="flex justify-start">
-      {enabled.buttons && (
-        <div className="w-[350px] scale-90">
-          <EditorBlinksButtons />
-        </div>
+    <div className="grid grid-cols-3 justify-start overflow-auto">
+      {blinkStyleEnabled.blinks && (
+        <>
+          {enabled.buttons && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorBlinksButtons />
+            </div>
+          )}
+
+          {enabled.inputs && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorBlinksInputs />
+            </div>
+          )}
+
+          {enabled.forms && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorBlinksForm />
+            </div>
+          )}
+        </>
       )}
 
-      {enabled.inputs && (
-        <div className="w-[350px] scale-90">
-          <EditorBlinksInputs />
-        </div>
-      )}
+      {blinkStyleEnabled.miniblinks && (
+        <>
+          {enabled.buttons && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorMiniblinkButtons />
+            </div>
+          )}
 
-      {enabled.forms && (
-        <div className="w-[350px] scale-90">
-          <EditorBlinksForm />
-        </div>
-      )}
+          {enabled.inputs && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorMiniblinkInputs />
+            </div>
+          )}
 
-      {/* <div className="w-[750px] max-w-[350px]">
-    <EditorMiniblinkInputs />
-    <EditorMiniblinkForm />
-    <EditorMiniblinkButtons />
-  </div> */}
+          {enabled.forms && (
+            <div className="w-[340px] scale-[.8]">
+              <EditorMiniblinkForm />
+            </div>
+          )}
+        </>
+      )}
     </div>
   )
 }
