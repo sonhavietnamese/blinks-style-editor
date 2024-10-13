@@ -103,3 +103,5 @@ export const VARIABLES = [
   "--blink-border-radius-rounded-input-standalone",
   "--blink-shadow-container",
 ]
+
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || ""

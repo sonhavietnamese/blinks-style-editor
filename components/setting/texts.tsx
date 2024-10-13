@@ -1,9 +1,8 @@
 import Checkbox from "@/components/checkbox"
 import Toggle from "@/components/toggle"
+import { TextConfig, useTextConfig } from "@/hooks/use-text-config"
 import { cn } from "@/libs/utils"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { useRef, useState } from "react"
+import { useEffect } from "react"
 
 interface TextsProps {
   enabled: boolean
@@ -11,24 +10,13 @@ interface TextsProps {
 }
 
 export default function Texts({ enabled, setEnabled }: TextsProps) {
-  const toggleRef = useRef<HTMLDivElement>(null)
-  const [isActive, setIsActive] = useState(false)
+  const { selected, setSelected } = useTextConfig()
 
-  useGSAP(
-    () => {
-      gsap.to("#thumb", {
-        duration: 0.2,
-        ease: "power2.out",
-        left: isActive ? 15 : 3,
-      })
-      gsap.to(toggleRef.current, {
-        duration: 0.2,
-        ease: "power2.out",
-        background: isActive ? "#000" : "#e6e6e6",
-      })
-    },
-    { scope: toggleRef, dependencies: [isActive] },
-  )
+  useEffect(() => {
+    if (!enabled) {
+      setSelected(undefined)
+    }
+  }, [enabled])
 
   return (
     <>
@@ -41,27 +29,23 @@ export default function Texts({ enabled, setEnabled }: TextsProps) {
       </div>
 
       <section
-        className={cn("mt-2 space-y-1.5 opacity-100", !enabled && "opacity-50")}
+        className={cn(
+          "mt-2 space-y-1.5 opacity-100",
+          !enabled && "pointer-events-none opacity-50",
+        )}
       >
         <Checkbox
           id="error"
           label="Error Text"
-          checked={true}
-          onChange={() => {}}
+          checked={selected === TextConfig.Error}
+          onChange={() => setSelected(TextConfig.Error)}
         />
 
         <Checkbox
           id="success"
           label="Success Text"
-          checked={true}
-          onChange={() => {}}
-        />
-
-        <Checkbox
-          id="warning"
-          label="Warning Text"
-          checked={true}
-          onChange={() => {}}
+          checked={selected === TextConfig.Success}
+          onChange={() => setSelected(TextConfig.Success)}
         />
       </section>
     </>

@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 export enum InputConfig {
   Button = "button",
@@ -16,36 +17,45 @@ interface InputConfigState {
   setEnabled: (id: InputConfig, value: boolean) => void
 }
 
-export const useInputConfig = create<InputConfigState>()((set) => ({
-  enabled: {
-    button: true,
-    disabled: false,
-    text: true,
-    number: false,
-    date: false,
-    radio: false,
-    checkbox: false,
-    select: false,
-  },
-  setEnabled: (id, value) =>
-    set((state) => {
-      const newEnabled = {
-        ...state.enabled,
-        [id]: value,
-      }
-      if (id === InputConfig.Button || id === InputConfig.Disabled) {
-        return { enabled: newEnabled }
-      }
+export const useInputConfig = create<InputConfigState>()(
+  persist(
+    (set) => ({
+      enabled: {
+        button: true,
+        disabled: false,
+        text: true,
+        number: false,
+        date: false,
+        radio: false,
+        checkbox: false,
+        select: false,
+      },
+      setEnabled: (id, value) =>
+        set((state) => {
+          const newEnabled = {
+            ...state.enabled,
+            [id]: value,
+          }
+          if (id === InputConfig.Button || id === InputConfig.Disabled) {
+            return { enabled: newEnabled }
+          }
 
-      const withoutButtonAndDisabled = Object.fromEntries(
-        Object.entries(newEnabled).filter(
-          ([key]) => key !== InputConfig.Button && key !== InputConfig.Disabled,
-        ),
-      )
+          const withoutButtonAndDisabled = Object.fromEntries(
+            Object.entries(newEnabled).filter(
+              ([key]) =>
+                key !== InputConfig.Button && key !== InputConfig.Disabled,
+            ),
+          )
 
-      if (!Object.values(withoutButtonAndDisabled).some(Boolean)) {
-        newEnabled[id] = true
-      }
-      return { enabled: newEnabled }
+          if (!Object.values(withoutButtonAndDisabled).some(Boolean)) {
+            newEnabled[id] = true
+          }
+          return { enabled: newEnabled }
+        }),
     }),
-}))
+
+    {
+      name: "blink-editor-input",
+    },
+  ),
+)

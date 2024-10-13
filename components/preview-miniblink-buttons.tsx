@@ -1,7 +1,10 @@
+import { TextConfig, useTextConfig } from "@/hooks/use-text-config"
 import { IsolatedBlinkLayout } from "./blinks-ui-0.13.1/layouts/IsolatedBlinkLayout"
+import { BASE_URL } from "@/constants"
 
 export default function EditorMiniblinkButtons() {
-  const actionApiUrl = "https://blinkman.sendarcade.fun/api/actions/blinkman"
+  const actionApiUrl = BASE_URL
+  const { selected: textSelected } = useTextConfig()
 
   return (
     <div className="custom flex flex-col gap-5 rounded-2xl bg-[var(--blink-bg-primary)] p-5">
@@ -16,8 +19,14 @@ export default function EditorMiniblinkButtons() {
           ctaType: "button",
           onClick: () => {},
         }}
-        error={undefined}
-        success={undefined}
+        error={
+          textSelected === TextConfig.Error ? "Sample error message" : undefined
+        }
+        success={
+          textSelected === TextConfig.Success
+            ? "Sample success message"
+            : undefined
+        }
       />
 
       <IsolatedBlinkLayout
@@ -31,8 +40,14 @@ export default function EditorMiniblinkButtons() {
           ctaType: "button",
           onClick: () => {},
         }}
-        error={undefined}
-        success={undefined}
+        error={
+          textSelected === TextConfig.Error ? "Sample error message" : undefined
+        }
+        success={
+          textSelected === TextConfig.Success
+            ? "Sample success message"
+            : undefined
+        }
       />
     </div>
   )

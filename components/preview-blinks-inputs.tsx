@@ -1,13 +1,16 @@
 import { BaseInputProps } from "@/components/blinks-ui-0.13.1/internal/inputs/types"
 import { BaseBlinkLayout } from "@/components/blinks-ui-0.13.1/layouts/BaseBlinkLayout"
 import { GENERATOR } from "@/components/generators/input"
+import { BASE_URL } from "@/constants"
 import { InputConfig, useInputConfig } from "@/hooks/use-input-config"
+import { TextConfig, useTextConfig } from "@/hooks/use-text-config"
 import { useEffect, useState } from "react"
 
 export default function EditorBlinksInputs() {
-  const actionApiUrl = "https://blinkman.sendarcade.fun/api/actions/blinkman"
+  const actionApiUrl = BASE_URL
 
   const { enabled: inputEnabled } = useInputConfig()
+  const { selected: textSelected } = useTextConfig()
 
   const [inputsConfig, setInputsConfig] = useState<BaseInputProps[]>([])
 
@@ -39,11 +42,9 @@ export default function EditorBlinksInputs() {
   return (
     <BaseBlinkLayout
       stylePreset="custom"
-      title="Blinkman Inputs"
-      description="Blinkman Inputs"
-      image={
-        "https://proxy.dial.to/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fblink-man%2Firfan_50_61.20_48_f45ed0faa7674f9e8c145848ee37da3f.png"
-      }
+      title="Inputs Preview"
+      description="All input types"
+      image={`${BASE_URL}/blinks-preview.png`}
       websiteUrl={actionApiUrl}
       websiteText={new URL(actionApiUrl).hostname}
       securityState="trusted"
@@ -51,8 +52,14 @@ export default function EditorBlinksInputs() {
       buttons={undefined}
       inputs={inputsConfig}
       form={undefined}
-      error={undefined}
-      success={undefined}
+      error={
+        textSelected === TextConfig.Error ? "Sample error message" : undefined
+      }
+      success={
+        textSelected === TextConfig.Success
+          ? "Sample success message"
+          : undefined
+      }
       supportability={{
         isSupported: true,
       }}
