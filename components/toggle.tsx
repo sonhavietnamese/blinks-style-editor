@@ -12,11 +12,34 @@ export default function Toggle({ checked, onChange }: ToggleProps) {
 
   useGSAP(
     () => {
-      gsap.to("#thumb", {
-        duration: 0.2,
-        ease: "power2.out",
-        left: checked ? 15 : 3,
-      })
+      if (checked) {
+        gsap.fromTo(
+          "#thumb",
+          {
+            left: 3,
+          },
+          {
+            duration: 0.2,
+            ease: "power2.out",
+            left: 11,
+          },
+        )
+      }
+
+      if (!checked) {
+        gsap.fromTo(
+          "#thumb",
+          {
+            left: 11,
+          },
+          {
+            duration: 0.2,
+            ease: "power2.out",
+            left: 3,
+          },
+        )
+      }
+
       gsap.to(toggleRef.current, {
         duration: 0.2,
         ease: "power2.out",
@@ -29,7 +52,7 @@ export default function Toggle({ checked, onChange }: ToggleProps) {
   return (
     <div
       ref={toggleRef}
-      className="relative h-[0.875rem] w-7 cursor-pointer select-none justify-end rounded-full"
+      className="relative h-[0.875rem] w-6 cursor-pointer select-none justify-end rounded-full"
       onClick={() => onChange?.(!checked)}
     >
       <div

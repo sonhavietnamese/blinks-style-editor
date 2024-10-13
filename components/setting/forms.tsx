@@ -1,20 +1,26 @@
 import Checkbox from "@/components/checkbox"
 import Toggle from "@/components/toggle"
+import { cn } from "@/libs/utils"
 import { useState } from "react"
 
-export default function Forms() {
-  const [isActive, setIsActive] = useState(false)
+interface FormsProps {
+  enabled: boolean
+  setEnabled: (value: boolean) => void
+}
 
+export default function Forms({ enabled, setEnabled }: FormsProps) {
   return (
     <>
       <div className="mt-5 flex items-center justify-between leading-none">
         <h4 className="text-[12px] font-semibold text-[#000000]/70">Form</h4>
 
-        <div className="">
-          <Toggle checked={isActive} onChange={setIsActive} />
+        <div className="mr-1">
+          <Toggle checked={enabled} onChange={setEnabled} />
         </div>
       </div>
-      <section className="mt-2 space-y-1.5 opacity-100">
+      <section
+        className={cn("mt-2 space-y-1.5 opacity-100", !enabled && "opacity-50")}
+      >
         <Checkbox
           id="text"
           label="Text Input"

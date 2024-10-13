@@ -4,29 +4,14 @@ import Code from "@/components/_code"
 import Color from "@/components/_color"
 import General from "@/components/_general"
 import Settings from "@/components/_settings"
-import EditorBlinksButtons from "@/components/editor-blinks-buttons"
-import EditorBlinksForm from "@/components/editor-blinks-form"
-import EditorBlinksInputs from "@/components/editor-blinks-inputs"
-import EditorMiniblinkButtons from "@/components/editor-miniblink-buttons"
-import EditorMiniblinkForm from "@/components/editor-miniblink-form"
-import EditorMiniblinkInputs from "@/components/editor-miniblink-inputs"
+import Preview from "@/components/preview"
 import Tabs from "@/components/tabs"
 import { useTabs } from "@/hooks/use-tabs"
 import { ee } from "@/libs/listener"
+import { ColorChangeEvent, NumberChangeEvent } from "@/types"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useEffect, useRef } from "react"
-
-type ColorChangeEvent = {
-  variable: string
-  color: string
-}
-
-type NumberChangeEvent = {
-  variable: string
-  value: string
-  unit: string
-}
 
 export default function Home() {
   const { stack } = useTabs()
@@ -91,8 +76,6 @@ export default function Home() {
       )
     })
     ee.on("number-change", (data: NumberChangeEvent) => {
-      console.log(data)
-      console.log(`${data.value}${data.unit}`)
       document.documentElement.style.setProperty(
         data.variable.replace("--", "--r-"),
         `${data.value}${data.unit}`,
@@ -140,24 +123,8 @@ export default function Home() {
         </section>
       </aside>
 
-      <section className="flex h-full w-full items-center justify-center gap-10 overflow-hidden">
-        <div className="flex justify-start gap-10">
-          <div className="w-[350px] scale-90">
-            <EditorBlinksButtons />
-          </div>
-          <div className="w-[350px] scale-90">
-            <EditorBlinksInputs />
-          </div>
-          <div className="w-[350px] scale-90">
-            <EditorBlinksForm />
-          </div>
-
-          {/* <div className="w-[750px] max-w-[350px]">
-            <EditorMiniblinkInputs />
-            <EditorMiniblinkForm />
-            <EditorMiniblinkButtons />
-          </div> */}
-        </div>
+      <section className="flex h-full w-full justify-center gap-10 overflow-hidden">
+        <Preview />
       </section>
     </main>
   )

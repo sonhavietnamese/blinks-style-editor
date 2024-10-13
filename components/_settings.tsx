@@ -3,8 +3,11 @@ import Container from "@/components/setting/container"
 import Forms from "@/components/setting/forms"
 import Inputs from "@/components/setting/inputs"
 import Texts from "@/components/setting/texts"
+import { usePreview } from "@/hooks/use-preview"
 
 export default function Settings() {
+  const { enabled, setEnabled } = usePreview()
+
   return (
     <>
       <div className="flex items-center gap-x-1.5 text-sm">
@@ -12,10 +15,22 @@ export default function Settings() {
       </div>
 
       <Container />
-      <Buttons />
-      <Texts />
-      <Inputs />
-      <Forms />
+      <Buttons
+        enabled={enabled.buttons}
+        setEnabled={(value) => setEnabled("buttons", value)}
+      />
+      <Texts
+        enabled={enabled.texts}
+        setEnabled={(value) => setEnabled("texts", value)}
+      />
+      <Inputs
+        enabled={enabled.inputs}
+        setEnabled={(value) => setEnabled("inputs", value)}
+      />
+      <Forms
+        enabled={enabled.forms}
+        setEnabled={(value) => setEnabled("forms", value)}
+      />
     </>
   )
 }

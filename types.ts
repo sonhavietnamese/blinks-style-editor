@@ -24,3 +24,21 @@ export type Shadow = {
 
 export type RootVariable = (typeof ROOT_VARIABLES)[number]
 export type Variable = (typeof VARIABLES)[number]
+
+export type ColorChangeEvent = {
+  variable: string
+  color: string
+}
+
+export type NumberChangeEvent = {
+  variable: string
+  value: string
+  unit: string
+}
+
+export type SettingsChangeEvent = {
+  id: string
+  value: boolean
+}
+
+export type BlinkStyle = "blinks" | "miniblinks"

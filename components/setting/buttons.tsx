@@ -1,69 +1,88 @@
 import Checkbox from "@/components/checkbox"
 import Toggle from "@/components/toggle"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { useRef, useState } from "react"
+import { cn } from "@/libs/utils"
+import { useState } from "react"
 
-export default function Buttons() {
-  const toggleRef = useRef<HTMLDivElement>(null)
-  const [isActive, setIsActive] = useState(false)
+interface ButtonsProps {
+  enabled: boolean
+  setEnabled: (value: boolean) => void
+}
 
-  useGSAP(
-    () => {
-      gsap.to("#thumb", {
-        duration: 0.2,
-        ease: "power2.out",
-        left: isActive ? 15 : 3,
-      })
-      gsap.to(toggleRef.current, {
-        duration: 0.2,
-        ease: "power2.out",
-        background: isActive ? "#000" : "#e6e6e6",
-      })
-    },
-    { scope: toggleRef, dependencies: [isActive] },
-  )
+export default function Buttons({ enabled, setEnabled }: ButtonsProps) {
+  const [activeStates, setActiveStates] = useState({
+    normal: true,
+    error: false,
+    disabled: false,
+    success: false,
+    loading: false,
+    long: false,
+    link: false,
+  })
+
+  const handleChange = (id: string, value: boolean) => {
+    if (!enabled) return
+
+    const newActiveStates = { ...activeStates, [id]: value }
+    if (!Object.values(newActiveStates).some(Boolean)) {
+      newActiveStates[id as keyof typeof activeStates] = true
+    }
+    setActiveStates(newActiveStates)
+  }
 
   return (
     <>
       <div className="mt-5 flex items-center justify-between leading-none">
         <h4 className="text-[12px] font-semibold text-[#000000]/70">Buttons</h4>
 
-        <div className="">
-          <Toggle checked={isActive} onChange={setIsActive} />
+        <div className="mr-1">
+          <Toggle checked={enabled} onChange={setEnabled} />
         </div>
       </div>
 
-      <section className="mt-2 space-y-1.5 opacity-100">
+      <section
+        className={cn("mt-2 space-y-1.5 opacity-100", !enabled && "opacity-50")}
+      >
+        <Checkbox
+          id="normal"
+          label="Normal Button"
+          checked={activeStates.normal}
+          onChange={(value) => handleChange("normal", value)}
+        />
         <Checkbox
           id="error"
           label="Error Button"
-          checked={true}
-          onChange={() => {}}
+          checked={activeStates.error}
+          onChange={(value) => handleChange("error", value)}
         />
         <Checkbox
           id="disabled"
           label="Disabled Button"
-          checked={true}
-          onChange={() => {}}
+          checked={activeStates.disabled}
+          onChange={(value) => handleChange("disabled", value)}
         />
         <Checkbox
           id="success"
           label="Success Button"
-          checked={true}
-          onChange={() => {}}
+          checked={activeStates.success}
+          onChange={(value) => handleChange("success", value)}
         />
         <Checkbox
           id="loading"
           label="Loading Button"
-          checked={true}
-          onChange={() => {}}
+          checked={activeStates.loading}
+          onChange={(value) => handleChange("loading", value)}
         />
         <Checkbox
           id="long"
           label="Long Content Button"
-          checked={true}
-          onChange={() => {}}
+          checked={activeStates.long}
+          onChange={(value) => handleChange("long", value)}
+        />
+        <Checkbox
+          id="link"
+          label="Link Button"
+          checked={activeStates.link}
+          onChange={(value) => handleChange("link", value)}
         />
       </section>
     </>

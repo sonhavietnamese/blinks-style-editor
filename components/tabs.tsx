@@ -29,7 +29,7 @@ export default function Tabs() {
   }
 
   return (
-    <nav className="absolute right-[-46px] top-0 flex w-[38px] flex-col rounded-[12px] bg-[#fff] p-1 shadow-sm">
+    <nav className="absolute right-[-46px] top-0 z-[99999999] flex w-[38px] flex-col rounded-[12px] bg-[#fff] p-1 shadow-sm">
       <div
         ref={container}
         className={cn("absolute h-[30px] w-[30px] rounded-lg bg-[#e6e6e6]/50")}
