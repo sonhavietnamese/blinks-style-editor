@@ -126,13 +126,13 @@ export default function Home() {
             </div>
             <div
               id="tab-color"
-              className="absolute left-[500px] h-full w-[256px]"
+              className="absolute left-[500px] h-full w-[256px] overflow-y-auto"
             >
               <Color />
             </div>
             <div
               id="tab-settings"
-              className="absolute left-[500px] h-full w-[256px]"
+              className="absolute left-[500px] h-full w-[256px] overflow-y-auto"
             >
               <Settings />
             </div>
@@ -142,13 +142,13 @@ export default function Home() {
 
       <section className="flex h-full w-full items-center justify-center gap-10 overflow-hidden">
         <div className="flex justify-start gap-10">
-          <div className="w-[750px] max-w-[350px]">
+          <div className="w-[350px] scale-90">
             <EditorBlinksButtons />
           </div>
-          <div className="w-[750px] max-w-[350px]">
+          <div className="w-[350px] scale-90">
             <EditorBlinksInputs />
           </div>
-          <div className="w-[750px] max-w-[350px]">
+          <div className="w-[350px] scale-90">
             <EditorBlinksForm />
           </div>
 

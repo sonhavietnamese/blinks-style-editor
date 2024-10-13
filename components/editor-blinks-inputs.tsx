@@ -33,6 +33,19 @@ export default function EditorBlinksButtons() {
           options: undefined,
         },
         {
+          type: "url",
+          placeholder: "URL input",
+          name: "name",
+          disabled: true,
+          required: false,
+          min: undefined,
+          max: undefined,
+          pattern: undefined,
+          description: undefined,
+          button: undefined,
+          options: undefined,
+        },
+        {
           type: "select",
           placeholder: "Select input",
           name: "name",
@@ -64,8 +77,8 @@ export default function EditorBlinksButtons() {
           ],
         },
         {
-          type: "date",
-          placeholder: "Date input",
+          type: "radio",
+          placeholder: "Radio input",
           name: "name",
           disabled: false,
           required: false,
@@ -73,12 +86,7 @@ export default function EditorBlinksButtons() {
           max: undefined,
           pattern: undefined,
           description: undefined,
-          button: {
-            text: "Save",
-            loading: false,
-            ctaType: "button",
-            onClick: () => {},
-          },
+          button: undefined,
           options: [
             {
               label: "Option 1",
@@ -94,6 +102,25 @@ export default function EditorBlinksButtons() {
             },
           ],
         },
+        {
+          type: "date",
+          placeholder: "Date input",
+          name: "name",
+          disabled: false,
+          required: false,
+          min: undefined,
+          max: undefined,
+          pattern: undefined,
+          description: undefined,
+          button: {
+            text: "Save",
+            loading: false,
+            ctaType: "button",
+            onClick: () => {},
+          },
+          options: undefined,
+        },
+
         {
           type: "number",
           placeholder: "Number input",

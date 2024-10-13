@@ -1,3 +1,4 @@
+import { ROOT_VARIABLES } from "@/constants"
 import { useTabs } from "@/hooks/use-tabs"
 import { css } from "@codemirror/lang-css"
 import { tags as t } from "@lezer/highlight"
@@ -5,7 +6,6 @@ import { createTheme } from "@uiw/codemirror-themes"
 import CodeMirror from "@uiw/react-codemirror"
 import { useEffect, useMemo, useState } from "react"
 import { useCopyToClipboard } from "usehooks-ts"
-import { ROOT_VARIABLES } from "@/constants"
 
 export default function Code() {
   const [code, setCode] = useState(`.custom {
@@ -66,14 +66,20 @@ export default function Code() {
 
   const [copiedText, copy] = useCopyToClipboard()
 
-  const handleCopy = () => () => {
-    copy(code)
-      .then(() => {
-        console.log("Copied!", { code })
-      })
-      .catch((error) => {
-        console.error("Failed to copy!", error)
-      })
+  const [copyButtonText, setCopyButtonText] = useState("Copy")
+
+  const handleCopy = async () => {
+    try {
+      await copy(code)
+      setCopyButtonText("Copied")
+    } catch (error) {
+      setCopyButtonText("Copy failed")
+      console.error(error)
+    } finally {
+      setTimeout(() => {
+        setCopyButtonText("Copy")
+      }, 1000)
+    }
   }
 
   const { activeTab } = useTabs()
@@ -142,7 +148,7 @@ export default function Code() {
           onClick={handleCopy}
           className="flex items-center justify-center space-x-1 rounded-md bg-[#e6e6e6]/50 p-1 px-2 text-black/60 ease-in-out hover:bg-[#e6e6e6]/80"
         >
-          <span className="text-xs">Copy</span>
+          <span className="text-xs">{copyButtonText}</span>
         </button>
       </div>
 
